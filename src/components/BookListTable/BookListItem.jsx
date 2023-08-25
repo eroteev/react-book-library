@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useContractRead } from 'wagmi';
 import libraryAbi from '../../abi/Library.json';
 import { CONTRACT } from '../../utils/constants';
 import { getBookDetails } from '../../utils/index';
+import { BookDetailsContext } from "../../contexts/BookDetailsContext";
 
 export const BookListItem = ({ isbn }) => {
 
   const [bookData, setBookData] = useState({});
+  const { bookDetails, setBookDetails } = useContext(BookDetailsContext);
 
   const { data: book, isSuccess } = useContractRead({
     address: CONTRACT,
@@ -21,11 +23,19 @@ export const BookListItem = ({ isbn }) => {
   });
 
   useEffect(() => {
+    if (bookDetails[book.isbn]) {
+      setBookData(bookDetails[book.isbn]);
+      return;
+    }
+
     getBookDetails(book.isbn)
       .then(result => {
         setBookData(result);
+
+        bookDetails[book.isbn] = result;
+        setBookDetails(bookDetails);
       })
-  }, [book.isbn])
+  }, [book.isbn, bookDetails, setBookDetails])
 
   return (
     isSuccess &&

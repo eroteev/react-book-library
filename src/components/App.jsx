@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import { WagmiConfig, createConfig, configureChains } from 'wagmi';
@@ -10,6 +10,7 @@ import { Footer } from './layout/Footer';
 
 import { INFURA_API_KEY } from '../utils/constants';
 import { Main } from './layout/Main';
+import { BookDetailsContext } from "../contexts/BookDetailsContext";
 
 export const App = () => {
   const { publicClient, webSocketPublicClient } = configureChains(
@@ -23,14 +24,18 @@ export const App = () => {
     webSocketPublicClient,
   });
 
+  const [bookDetails, setBookDetails] = useState([]);
+
   return (
     <BrowserRouter>
       <WagmiConfig config={config}>
-        <div className="wrapper">
-          <Header />
-          <Main />
-          <Footer />
-        </div>
+        <BookDetailsContext.Provider value={{bookDetails, setBookDetails}}>
+          <div className="wrapper">
+            <Header/>
+            <Main/>
+            <Footer/>
+          </div>
+        </BookDetailsContext.Provider>
       </WagmiConfig>
     </BrowserRouter>
   );
