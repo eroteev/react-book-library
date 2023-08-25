@@ -32,6 +32,7 @@ npm start
 ## 🗄 Project description, structure and functionalities
 
 The project provides the following functionalities:
+- Interact with [Library Contract](https://sepolia.etherscan.io/address/0x631fb9AC66245bfbeb607F5820B1569AB34F7c48#code)
 - Allow the user to connect to the library contract on Sepolia
 - list all available books with their copies and detailed information extracted from Google Books API
 - add new book to the library with their copies
