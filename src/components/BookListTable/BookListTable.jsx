@@ -2,8 +2,12 @@ import React from 'react';
 import { BookListItem } from './BookListItem';
 
 export const BookListTable = ({ isbnList }) => {
+
+  if (!isbnList) {
+    return;
+  }
+
   return (
-    isbnList &&
     <table className='table table-hover'>
       <thead>
       <tr>

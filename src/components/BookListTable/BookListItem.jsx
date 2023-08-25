@@ -37,8 +37,11 @@ export const BookListItem = ({ isbn }) => {
       })
   }, [book.isbn, bookDetails, setBookDetails])
 
+  if (!isSuccess) {
+    return;
+  }
+
   return (
-    isSuccess &&
     <tr>
       <td>{book.isbn.toString()}</td>
       <td>{bookData?.title}</td>
