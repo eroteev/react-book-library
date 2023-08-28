@@ -23,19 +23,19 @@ export const BookListItem = ({ isbn }) => {
   });
 
   useEffect(() => {
-    if (bookDetails[book.isbn]) {
-      setBookData(bookDetails[book.isbn]);
+    if (bookDetails[isbn]) {
+      setBookData(bookDetails[isbn]);
       return;
     }
 
-    getBookDetails(book.isbn)
+    getBookDetails(isbn)
       .then(result => {
         setBookData(result);
 
-        bookDetails[book.isbn] = result;
+        bookDetails[isbn] = result;
         setBookDetails(bookDetails);
       })
-  }, [book.isbn, bookDetails, setBookDetails])
+  }, [isbn, bookDetails, setBookDetails])
 
   if (!isSuccess) {
     return;
